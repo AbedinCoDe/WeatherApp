@@ -89,3 +89,9 @@ body{
     margin-top: -6px;
     margin-bottom: -8px;
 }
+
+
+.weatherCondition{
+    font-size: 23px;
+    font-weight: 500;
+}

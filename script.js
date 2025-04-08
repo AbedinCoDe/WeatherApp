@@ -16,11 +16,13 @@ async function fetchGeoLocation(lat, lon){
 
 }
 
+
 weatherDetails()
 
 
 async function fetchWeatherData(city) {
     let getCityInput = document.querySelector('.cityInput');
+    let noCityFound = document.querySelector(".NoCityFound");
 
     let getCityName = getCityInput?.value.trim().toLowerCase();
     
@@ -31,9 +33,16 @@ async function fetchWeatherData(city) {
         return;
     }
 
+    
     let Url = `https://api.openweathermap.org/data/2.5/weather?q=${toSearchCity}&appid=ca8f7a5b81959a4e52bf539487520281&units=metric`
-
+    
+    
     let res = await fetch(Url);
+
+    if(res.status == 404){
+        noCityFound.innerText = "No City Found";
+    }
+
     let data = await res.json();
 
     weatherDetails(data);
@@ -48,6 +57,7 @@ function weatherDetails(data) {
 
     innerHtml += `
         <img src="${conditionalWeather(data)}" alt="" class="weather_icon">
+        <p class="weatherCondition">${data.weather[0].main}</p>
             <h1 class="temp">${Math.round(data.main.temp)}°C</h1>
             <h2 class="city">${data.name}</h2>
             <div class="details">
