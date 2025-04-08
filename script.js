@@ -12,7 +12,6 @@ async function fetchGeoLocation(lat, lon){
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
     fetchWeatherData(data.address.city)
 
 }
@@ -38,7 +37,6 @@ async function fetchWeatherData(city) {
     let data = await res.json();
 
     weatherDetails(data);
-
 }
 
 
@@ -49,7 +47,7 @@ function weatherDetails(data) {
     let innerHtml = "";
 
     innerHtml += `
-        <img src="images/heavy-rain.png" alt="" class="weather_icon">
+        <img src="${conditionalWeather(data)}" alt="" class="weather_icon">
             <h1 class="temp">${Math.round(data.main.temp)}°C</h1>
             <h2 class="city">${data.name}</h2>
             <div class="details">
@@ -71,6 +69,23 @@ function weatherDetails(data) {
     `
     getWeatherDetailsContainer.innerHTML = innerHtml;
 
+}
+
+
+function conditionalWeather(data){
+    if(data.weather[0].main == "Clouds"){
+        return "images/clouds.png"
+    }else if(data.weather[0].main == "Clear"){
+        return "images/clear.png"
+    }else if(data.weather[0].main ==  "Rain"){
+        return "images/heavy-rain.png"
+    }else if(data.weather[0].main ==  "Drizzle"){
+        return "images/drizzle.png"
+    }else if(data.weather[0].main ==  "Mist"){
+        return "images/mist.png"
+    }else{
+        return "images/clear.png"
+    }
 }
 
 
