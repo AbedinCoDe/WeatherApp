@@ -34,7 +34,7 @@ async function fetchWeatherData(city) {
     }
 
     
-    let Url = `https://api.openweathermap.org/data/2.5/weather?q=${toSearchCity}&appid=ca8f7a5b81959a4e52bf539487520281&units=metric`
+    let Url = `https://api.openweathermap.org/data/2.5/weather?q=${toSearchCity}&appid={Your Token Here}&units=metric`
     
     
     let res = await fetch(Url);
